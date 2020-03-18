@@ -1,0 +1,5 @@
+Heidi 33
+Ola 78
+Per 98
+Svein 54
+Oscar 77

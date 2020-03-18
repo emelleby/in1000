@@ -1,0 +1,4 @@
+a. 
+b. Artister har selvfølgelig flere sanger og hvis man bruker artist som 'key' vil forrige sang av artisten bli overskrevet.
+Det samme gjelder om man bruker tittel siden det kan være flere sanger med samme navn.
+Man kan jo unngå det ved å bruke artist som 'key' og en liste som 'value' med alle sangene. Blir litt mer mekk kanskje?
