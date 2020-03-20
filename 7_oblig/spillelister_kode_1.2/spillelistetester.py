@@ -53,7 +53,7 @@ def hovedprogram():
     # Tester om flere sanger returneres for samme artist
     queenListe = allMusikk.hentArtistUtvalg("Queen")
     print("Spiller sanger med Queen hentet fra listen: ")
-    # print(queenListe)
+
     for queenSang in queenListe:
         allMusikk.spillSang(queenSang) 
         #queenSang.spill()
