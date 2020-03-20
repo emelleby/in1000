@@ -7,12 +7,27 @@ Created on Fri Mar 20 00:58:14 2020
 """
 
 def leggTil() :
-	personliste = []
-	les = input('Oppgi navn: ')
-	while les != "" :
-		navnene = les.split()
-		nytt = Navn(navnene[0],navnene[1],navnene[2])
-		alder = int(input("Oppgi alder: "))
-		nyPerson = Person(nytt, alder)
-		personliste.append(nyPerson)
-		les = input("Oppgi navn på naturlig form: ")
+    sangliste = []
+    artist = input('Oppgi navn på band/artist: ')
+    tittel = input('Oppgi navn på sang: ')
+    while artist != "" :
+        #nySang = Person(artist, tittel)
+        sangliste.append((tittel,artist))
+        artist = input('Oppgi navn på band/artist: ')
+        tittel = input('Oppgi navn på sang: ')
+        
+    # Skriv sanger til musikk.txt
+    skrivsang = open("musikk.txt", "a")
+    
+    for sang in sangliste:
+        linje = sang[0] + ";" + sang[1] + '\n'
+        skrivsang.write(linje)
+        
+    skrivsang.close()
+    
+
+    
+if __name__ == "__main__":
+    #def main():
+    
+    leggTil()
