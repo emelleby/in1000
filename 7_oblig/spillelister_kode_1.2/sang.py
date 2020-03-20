@@ -27,6 +27,7 @@ class Sang:
         """
         Metoden returnerer en string med hva som spilles.
         """
+        # TODO spiller egentlig ikke noen sang. Trenger vel egentlig sanger å spille.
         return f"Spiller av {self._tittel} med {self._artist}"
     
     def sjekkArtist(self, navn):
