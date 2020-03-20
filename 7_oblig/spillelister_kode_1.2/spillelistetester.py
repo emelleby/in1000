@@ -8,6 +8,7 @@ Created on Mon Mar 16 10:13:54 2020
 
 from sang import Sang
 from spilleliste import Spilleliste
+from leggtil import leggTil as leggtil
 
 def hovedprogram():
     
@@ -25,6 +26,10 @@ def hovedprogram():
     print("Tester spillAlle(): Spiller alle sanger i listen:")
     allMusikk.spillAlle()
     print()
+    
+    leggtil()
+    
+    allMusikk.lesFraFil(filnavn)
     
     nySang = Sang("Mil etter mil", "Jahn Teigen")
     allMusikk.leggTilSang(nySang)

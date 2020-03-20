@@ -29,7 +29,7 @@ class Spilleliste:
         
         Ordboken returneres
         """                
-        
+        self._sanger.clear()
         ordbok = {}
         # Les en fil med musikk
         innfil = open(filnavn, mode='r')
