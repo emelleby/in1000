@@ -25,12 +25,13 @@ class Spilleliste:
         
     def lesFraFil(self, filnavn):
         """
-        Metoden som tar en fil med 2 verdier separert med semikolon som parameter og legger linjene in i en ordbok.
+        Metoden som tar en fil med 2 verdier separert med semikolon som parameter.
+        og legger linjene in i en ordbok.
         
         Ordboken returneres
         """                
         self._sanger.clear()
-        ordbok = {}
+ 
         # Les en fil med musikk
         innfil = open(filnavn, mode='r')
         
@@ -45,15 +46,11 @@ class Spilleliste:
             # Legg objektet(sangen) til i spillelisten
             self._sanger.append(sang)
             
-            
-            ordbok[biter[1]] = biter[0]
-            
         # Lukk filen
         innfil.close()
         # print(self._sanger)
         # print(allMusikk) NO
         print()
-        return ordbok
     
     def spillAlle(self):
         """ 
