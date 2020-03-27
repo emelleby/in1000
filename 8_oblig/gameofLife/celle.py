@@ -2,6 +2,9 @@ class Celle:
     # Konstruktør​
     def __init__(self):
         self._alive = False
+
+    def __str__(self):
+        return f"Status er {self._alive}"
         
     # Endre status​ 
     def settDoed(self):
@@ -17,6 +20,6 @@ class Celle:
         return False
         
     def hentStatusTegn(self):
-        if self._alive:
+        if self.erLevende():
             return "O"
         return "."
