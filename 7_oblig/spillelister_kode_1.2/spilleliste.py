@@ -44,7 +44,7 @@ class Spilleliste:
                 self._sanger.append(sang)
                       
         # Lukk filen
-        #innfil.close()
+        #innfil.close() # with with lukkes filen automagisk.
         print()
     
     def spillAlle(self):

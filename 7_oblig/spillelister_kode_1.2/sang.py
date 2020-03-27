@@ -29,7 +29,7 @@ class Sang:
         
     def spill(self):
         """
-        Metoden returnerer en string med hva som spilles.
+        Metoden printer en string med hva som spilles.
         """
         # print(f"Spiller av {self._tittel} med {self._artist}") # or
         # print(f"Spiller følgende: {str(self)}") # or
@@ -42,7 +42,7 @@ class Sang:
         sjekk = navn.split()
         artistList = [v.lower() for v in self._artistList]
         
-        
+        # sjekk om søkestrengen inneholder ord som matcher artist
         for ord in sjekk:
             if ord.lower() in artistList:
                 return True
