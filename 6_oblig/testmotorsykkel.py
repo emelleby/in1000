@@ -19,20 +19,24 @@ def hovedprogram():
     print(hd)
     
     # test at kjor() virker
-    M.kjor(hd, 10)
+    #M.kjor(hd, 10) # ikke slik, men slik..
+    hd.kjor(10)
     
     # verifiser kjor()
-    print(f"Nå har den kjørt et par kilometer og da er det {M.hentKilometerstand(honda)}")
+    print(f"Nå har den kjørt et par kilometer og da er det {hd.hentKilometerstand()}")
     
     # test hentKilometerstand()
-    print(M.hentKilometerstand(honda))
+    print(M.hentKilometerstand(hd))
+    print(hd.hentKilometerstand())
     
-    # test skrivUt
-    print(M.skrivUt(honda))
-    print(M.skrivUt(tri))
-    print(M.skrivUt(hd))
+    # test skrivUt (Dinne er visst feil)
+    #print(M.skrivUt(honda))
+
+    print(honda.skrivUt())
+    print(tri.skrivUt())
+    print(hd.skrivUt())
     
     # Skriver ut hjelp for Class Motorsykkel(M)
-    help(M)
+    # qhelp(M)
     
 hovedprogram()

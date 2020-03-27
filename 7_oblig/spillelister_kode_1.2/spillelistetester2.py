@@ -8,16 +8,29 @@ Created on Mon Mar 16 10:13:54 2020
 
 from sang import Sang
 from spilleliste import Spilleliste
-
+from leggtil import leggTil as leggtil
 
 def hovedprogram():
-
-    allMusikk = Spilleliste('Hele musikkbiblioteket')
-    allMusikk.lesFraFil('musikk.txt')
     
-    print("Tester spillAlle: Spiller alle sanger i listen:")
+    filnavn = "musikk.txt"
+    # Opprett en spilleliste for filen med navnet på filen minus fil.ext
+    for i, char in enumerate(filnavn):
+        if char == ".":
+            navn = filnavn[:i].capitalize()
+            allMusikk = Spilleliste(navn)
+            # print(navn) # musikk
+    
+    # allMusikk = Spilleliste('Hele musikkbiblioteket')
+    allMusikk.lesFraFil(filnavn)
+    
+    print("Tester spillAlle(): Spiller alle sanger i listen:")
     allMusikk.spillAlle()
     print()
+    print(allMusikk._sanger)
+    
+    # leggtil()
+    
+    allMusikk.lesFraFil(filnavn)
     
     nySang = Sang("Mil etter mil", "Jahn Teigen")
     allMusikk.leggTilSang(nySang)
@@ -35,20 +48,23 @@ def hovedprogram():
         allMusikk.spillSang(funnetSang)
     else:
         print("Fant ikke sangen\n")
-        
     assert(funnetSang in allMusikk.hentArtistUtvalg("Jahn"))
     print()
-    
     
     # Tester om flere sanger returneres for samme artist
     queenListe = allMusikk.hentArtistUtvalg("Queen")
     print("Spiller sanger med Queen hentet fra listen: ")
+
     for queenSang in queenListe:
-        queenSang.spill()
+        allMusikk.spillSang(queenSang) 
+        #queenSang.spill()
     
+    # Tester om funnetSang er fjernet fra listen
     allMusikk.fjernSang(funnetSang)
     assert(not (funnetSang in allMusikk.hentArtistUtvalg("Jahn")))
+    print()
+    
+    #Tester Spilleliste() ___str__ metode
+    print(allMusikk)
     
 hovedprogram()
-    
- 

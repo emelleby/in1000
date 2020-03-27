@@ -27,9 +27,9 @@ def hovedprogram():
     assert(not sang1.sjekkTittel("Hallow"))       # False
     print()
         
-    print("Utforer spill:")
+    print("Utfører spill:")
     sang1.spill()
-    print()
+    print(sang1)
     
     print("Tester sjekkArtistogTittel med 'Bradley Cooper' og 'Shallow'")
     assert(sang1.sjekkArtistogTittel('Bradley Cooper', 'Shallow')) # True

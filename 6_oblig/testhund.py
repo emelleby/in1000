@@ -19,11 +19,16 @@ def main():
     
     fido.spring()
     
-    print(fido.vekt)
-    print(fido.metthet)
+    # Slik som dette skal man altså ikke gjøre.
+    print(fido._vekt)
+    fido._vekt += 12
+    print(fido._metthet)
     fido.spis(1)
-    print(fido.metthet)
-    print(fido.vekt)
+    print(fido._metthet)
+
+    print("SLIK skal det gjøres..")
+    print(fido.hentVekt(), "kilo")
+    print(fido.hentAlder(), 'år')
     
     fido.spring()
     fido.spring()

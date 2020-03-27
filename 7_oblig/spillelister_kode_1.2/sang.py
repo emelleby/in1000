@@ -13,6 +13,10 @@ class Sang:
     
     """
     def __init__(self, tittel, artist):
+        """ 
+        Initierer en instans av sang med artist og tittel på sangen
+        Splitter opp sangtittel og artistnavn i egne lister for å hjelpe søk.
+        """
         self._artist = artist
         self._tittel = tittel
         # Splitter parameter opp i lister for å bruke i metoder
@@ -27,8 +31,9 @@ class Sang:
         """
         Metoden returnerer en string med hva som spilles.
         """
-        # TODO spiller egentlig ikke noen sang. Trenger vel egentlig sanger å spille.
-        return f"Spiller av {self._tittel} med {self._artist}"
+        # print(f"Spiller av {self._tittel} med {self._artist}") # or
+        # print(f"Spiller følgende: {str(self)}") # or
+        print("Spiller følgende:", self)
     
     def sjekkArtist(self, navn):
         """
@@ -61,12 +66,7 @@ class Sang:
         stemmer med sangens instansvariabler, ellers False.
         """
         return True if self.sjekkArtist(artist) and self.sjekkTittel(tittel) else False
-        """
-        if self.sjekkArtist(artist) and self.sjekkTittel(tittel):
-            return True
-        else:
-            False
-        """
+
        
         
         

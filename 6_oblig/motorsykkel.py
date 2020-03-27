@@ -22,6 +22,7 @@ class Motorsykkel:
         self.kilometerstand = kilometerstand
 
     def __str__(self):
+        """ returnerer en string om tilstanden til instansen """
         return f"Sykkelen er en {self.merke}, med registreringsnummer \
 {self.registreringsnummer} og har kilometerstand: {self.kilometerstand}."
 
@@ -34,6 +35,6 @@ class Motorsykkel:
         return self.kilometerstand
 
     def skrivUt(self):
-        """ returnerer en string om tilstanden til instansen """
-        return f"Sykkelen er en {self.merke}, med registreringsnummer \
-{self.registreringsnummer} og har kilometerstand: {self.kilometerstand}."
+        """ PRINTER en string om tilstanden til instansen """
+        print(f"Sykkelen er en {self.merke}, med registreringsnummer \
+{self.registreringsnummer} og har kilometerstand: {self.kilometerstand}.")

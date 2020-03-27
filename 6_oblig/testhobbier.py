@@ -5,30 +5,7 @@ Created on Tue Mar 10 20:30:05 2020
 
 @author: eivind
 """
-
-class Person:
-    def __init__(self,navn,alder):
-        self._navn = navn
-        self._alder = alder
-        self._hobbyer = []
-
-    # Setter
-    def leggTilHobby(self, hobby):
-        self._hobbyer.append(hobby)
-
-    # Getter
-    def getNavn(self):
-        return self._navn
-
-    def skrivHobbyer(self):
-        hobbies = ""
-        for hobby in self._hobbyer:
-            hobbies += hobby + ", "
-        return hobbies
-
-    def skrivUtsom(self):
-        print(f"{self.getNavn()}({self._alder}) har følgende hobbyer: " + self.skrivHobbyer())
-       
+from hobbyer import Person
 
 def main():
     navn = input('Hva er ditt navn? ')
@@ -49,6 +26,4 @@ def main():
         print(bruker.skrivUtsom())
 
 if __name__ == "__main__":
-    main()
-
-        
+    main()   
