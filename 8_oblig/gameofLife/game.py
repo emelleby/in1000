@@ -28,7 +28,8 @@ frm_spill = tk.Frame(relief=tk.SUNKEN, borderwidth=3)
 frm_spill.pack()
 
 # List of field labels
-labels = S(13,33)
+# S(3,3)
+labels = S(3,3)
 """
 [
     ["dead", "alive", "dead"],
@@ -37,13 +38,13 @@ labels = S(13,33)
 ]
 """
 # Loop over the list of field labels
-for idx, row in enumerate(labels):
+for idx, row in enumerate(labels._brett):
     
     for i, state in enumerate(row):
         # Create a LabelFrame widget with the text from the labels list or a frame and then a label
         frm_cell = tk.Frame(master=frm_spill, width=25, height=25)
         frm_cell.grid(row=idx, column=i, padx=2, pady=2)
-        label = tk.Label(master=frm_cell, width=2, text=state, bg="red" if state == "." else "green")
+        label = tk.Label(master=frm_cell, width=2, text=state.hentStatusTegn(), bg="red" if state._alive else "green")
         # Use the grid geometry manager to place the Label and
         # Entry widgets in the row whose index is idx
         label.pack() #, sticky="e")
