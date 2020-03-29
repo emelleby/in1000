@@ -29,7 +29,7 @@ frm_spill.pack()
 
 # List of field labels
 # S(3,3)
-labels = S(13,23)
+labels = S(13,43)
 print(labels._brett[0][0])
 """
 [
