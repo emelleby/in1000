@@ -29,8 +29,17 @@ frm_spill.pack()
 
 # List of field labels
 # S(3,3)
-labels = S(13,43)
+labels = S(3,4)
 print(labels._brett[0][0])
+# Bring the cell to life
+# labels._brett[0][0]._alive = True
+"""
+print(labels._brett[0][0])
+print(labels._brett)
+for x in labels._brett:
+    for y in x:
+        y._alive = True
+"""
 """
 [
     ["dead", "alive", "dead"],
@@ -68,13 +77,13 @@ frm_buttons.pack(fill=tk.X, ipadx=5, ipady=5)
 
 # Create the "Submit" button and pack it to the
 # right side of `frm_buttons`
-btn_submit = tk.Button(master=frm_buttons, text="Stop")
-btn_submit.pack(side=tk.RIGHT, padx=10, ipadx=10)
+btn_stop = tk.Button(master=frm_buttons, text="Stop")
+btn_stop.pack(side=tk.RIGHT, padx=10, ipadx=10)
 
 # Create the "Clear" button and pack it to the
 # right side of `frm_buttons`
-btn_clear = tk.Button(master=frm_buttons, text="Run")
-btn_clear.pack(side=tk.RIGHT, ipadx=10)
+btn_run = tk.Button(master=frm_buttons, text="Run", command=labels.oppdatering)
+btn_run.pack(side=tk.RIGHT, ipadx=10)
 
 # Start the application
 window.mainloop()
