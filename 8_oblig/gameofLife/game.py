@@ -1,21 +1,7 @@
 import tkinter as tk
 from spillebrett import Spillebrett as S
 
-"""
-def ruter(rader, kolonner):
 
-
-    # lag en nøstet liste
-    brett = []
-    # counter = 0
-    for rad in range(rader):
-        rad = []
-        for kolonne in range(kolonner):
-            rad.append("O")
-
-        brett.append(rad)
-    return brett
-"""
 
 # Create a new window with the title "Address Entry Form"
 window = tk.Tk()
@@ -30,43 +16,56 @@ frm_spill.pack()
 # List of field labels
 # S(3,3)
 labels = S(3,4)
-print(labels._brett[0][0])
+
+
+# print(labels._brett[0][0])
 # Bring the cell to life
 # labels._brett[0][0]._alive = True
-"""
-print(labels._brett[0][0])
-print(labels._brett)
-for x in labels._brett:
-    for y in x:
-        y._alive = True
-"""
-"""
-[
-    ["dead", "alive", "dead"],
-    ["dead", "dead", "alive"],
-    ["alive", "alive", "dead"]
-]
-"""
+# Frame for text about generation and status
+frm_status = tk.Frame()
+
+label = tk.Label(master=frm_spill, width=2)
+lbl_gen = tk.Label(master=frm_status, text=f"Generation {labels._gen}")
+    
+lbl_alive = tk.Label(master=frm_status, text=f"Levende celler er: {labels.finnAntallLevende()}")
 # Loop over the list of field labels
 for idx, row in enumerate(labels._brett):
     
     for i, state in enumerate(row):
-        # Create a LabelFrame widget with the text from the labels list or a frame and then a label
-        frm_cell = tk.Frame(master=frm_spill, width=25, height=25)
-        frm_cell.grid(row=idx, column=i, padx=2, pady=2)
-        label = tk.Label(master=frm_cell, width=2, text=state.hentStatusTegn(), bg="green" if state._alive else "red")
-        # Use the grid geometry manager to place the Label and
-        # Entry widgets in the row whose index is idx
-        label.pack() #, sticky="e")
-        # frm_spill.columnconfigure(i, minsize=60)
 
-# Frame for text about generation and status
-frm_status = tk.Frame()
-frm_status.pack(fill=tk.X)
+        label = tk.Label(master=frm_spill, width=2, text=state.hentStatusTegn(), bg="green" if state._alive else "red")
 
-lbl_gen = tk.Label(master=frm_status, text="Generation X")
+        label.grid(row=idx, column=i, padx=2, pady=2)
+
+def update():
+
+    # labels = S.labels
+    global label
+    global lbl_gen
+    global lbl_alive
+    # Loop over the list of field labels
+    for idx, row in enumerate(labels._brett):
+        
+        for i, state in enumerate(row):
+            # Create a LabelFrame widget with the text from the labels list or a frame and then a label
+            # frm_cell = tk.Frame(master=frm_spill, width=25, height=25)
+            # frm_cell.grid(row=idx, column=i, padx=2, pady=2)
+            label.grid_forget()
+            label = tk.Label(master=frm_spill, width=2, text=state.hentStatusTegn(), bg="green" if state._alive else "red")
+            # Use the grid geometry manager to place the Label and
+            # Entry widgets in the row whose index is idx
+            label.grid(row=idx, column=i, padx=2, pady=2) #.pack() #, sticky="e")
+            # frm_spill.columnconfigure(i, minsize=60)
+    lbl_gen = tk.Label(master=frm_status, text=f"Generation {labels._gen}")
+    
+    lbl_alive = tk.Label(master=frm_status, text=f"Levende celler er: {labels.finnAntallLevende()}")
+
+
+#lbl_gen = tk.Label(master=frm_status, text=f"Generation {labels._gen}")
 lbl_gen.pack()
-
+#lbl_alive = tk.Label(master=frm_status, text=f"Levende celler er: {labels.finnAntallLevende()}")
+lbl_alive.pack()
+frm_status.pack(fill=tk.X)
 
 # Create a new frame `frm_buttons` to contain the
 # Submit and Clear buttons. This frame fills the
@@ -77,13 +76,15 @@ frm_buttons.pack(fill=tk.X, ipadx=5, ipady=5)
 
 # Create the "Submit" button and pack it to the
 # right side of `frm_buttons`
-btn_stop = tk.Button(master=frm_buttons, text="Stop")
+btn_stop = tk.Button(master=frm_buttons, text="Stop", command=window.quit)
 btn_stop.pack(side=tk.RIGHT, padx=10, ipadx=10)
 
 # Create the "Clear" button and pack it to the
 # right side of `frm_buttons`
-btn_run = tk.Button(master=frm_buttons, text="Run", command=labels.oppdatering)
+btn_run = tk.Button(master=frm_buttons, text="Run", command=lambda:[S.oppdatering(labels), update()])
 btn_run.pack(side=tk.RIGHT, ipadx=10)
+
+# Update window
 
 # Start the application
 window.mainloop()

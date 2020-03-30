@@ -1,21 +1,34 @@
 from spillebrett import Spillebrett as S
 
-labels = S(2,2)
-# Terminal Output
-print()
-for rad in labels._brett:
-    for celle in rad:
-        print(celle.hentStatusTegn(), end='')
-    print("\n")
+def main():
 
-S.oppdatering(labels)
+    rader = int(input("Hvor mange rader vil du ha? "))
+    kolonner = int(input("Hvor mange kolonner vil du ha? "))
 
-S.tegnBrett(labels)
+    #Opprett instansen av brettet
+    brett = S(rader, kolonner)
+    #Tegn ut brettet
+    S.tegnBrett(brett)
+    print(f"Dette er generasjon {brett._gen}")
+    print(f"Det er nå {brett.finnAntallLevende()} levende celler.")
+    print("Vil du se en generasjon til?")
+    new_generation = input("Press 'Enter' or 'q' to quit. ")
 
-print(labels._gen)
+    while new_generation == "" and new_generation != "q":
 
-S.oppdatering(labels)
+        print()
+        #print(new_generation + " enter")
+        S.oppdatering(brett)
 
-S.tegnBrett(labels)
+        S.tegnBrett(brett)
 
-print(labels._gen)
+        print(f"Dette er generasjon {brett._gen}")
+        print(f"Det er nå {brett.finnAntallLevende()} levende celler.")
+        print("Vil du se en generasjon til?")
+
+        new_generation = input("Press 'Enter' or 'q' to quit. ")
+        
+
+
+if __name__ == "__main__":
+    main()

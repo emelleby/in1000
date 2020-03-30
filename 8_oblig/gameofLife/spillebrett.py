@@ -87,6 +87,7 @@ class Spillebrett:
                 # tell alle celler som lever
                 if celle._alive:
                     tall += 1
+        return tall
     
     def _generer(self):
         for rad in self._brett:
