@@ -1,4 +1,4 @@
-from spillebrett import Spillebrett as S
+from spillebrett import Spillebrett# as S
 
 def main():
 
@@ -6,27 +6,28 @@ def main():
     kolonner = int(input("Hvor mange kolonner vil du ha? "))
 
     #Opprett instansen av brettet
-    brett = S(rader, kolonner)
+    brett = Spillebrett(rader, kolonner)
     #Tegn ut brettet
-    S.tegnBrett(brett)
-    print(f"Dette er generasjon {brett._gen}")
-    print(f"Det er nå {brett.finnAntallLevende()} levende celler.")
-    print("Vil du se en generasjon til?")
-    new_generation = input("Press 'Enter' or 'q' to quit. ")
+    brett.tegnBrett()
+    # Sett while loop control variable
+    new_generation = ""
 
-    while new_generation == "" and new_generation != "q":
+    while new_generation != "q":
 
         print()
-        #print(new_generation + " enter")
-        S.oppdatering(brett)
-
-        S.tegnBrett(brett)
-
+        # Print info om generasjonen
         print(f"Dette er generasjon {brett._gen}")
         print(f"Det er nå {brett.finnAntallLevende()} levende celler.")
         print("Vil du se en generasjon til?")
-
+        # Spør om hva bruker vil
         new_generation = input("Press 'Enter' or 'q' to quit. ")
+        # Sjekk om bruker vil se en ny runde ved å trykke enter
+        if new_generation == "":
+            brett.oppdatering()
+            brett.tegnBrett()
+        # Hvis noe annet enn 'Enter' eller 'q' trykkes så går loopen en runde til uten å oppdatere.
+        else:
+            continue
         
 
 

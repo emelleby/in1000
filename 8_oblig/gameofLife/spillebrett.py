@@ -1,32 +1,41 @@
-from celle import Celle as C
+from celle import Celle# as C
 import random
 
 class Spillebrett:
-
+    """ 
+    classen Spillebrett tar et antall rader og kolonner som parameter.
+    classen har en nøstet løkke som attributt som holder på celle instanser
+    """
     def __init__(self, rader, kolonner):
         self._rader = rader
         self._kolonner = kolonner
         self._gen = 0
 
-        # lag en nøstet liste
+        # Lag en nøstet liste
         self._brett = []
 
-        # Populer spillebrettet med instanser av celler
+        # Populer spillebrettet/listen med instanser av celler
         for rad in range(self._rader):
             rad = []
             for celle in range(self._kolonner):
-                rad.append(C())
+                rad.append(Celle())
             self._brett.append(rad)
-        
+        # Call _generer for å sette status på cellene
+        # Jeg kan vel kanskje kalle på _generer over og sette status direkte på en måte?
         self._generer()
 
     def tegnBrett(self):
+        """ tegnBrett skriver Spillebrettet ut til terminalen med tegn iht status"""
         for rad in self._brett:
             for celle in rad:
                 print(celle.hentStatusTegn(), end='')
             print("\n")
     
     def oppdatering(self):
+        """
+        oppdatering() kjører en oppdateringsrutine som lager to lister hvor alle objektene 
+        deles inn iht status for neste generasjon
+        """
         levende = []
         doed = []
 
@@ -36,7 +45,6 @@ class Spillebrett:
             for y, celle in enumerate(rad):
                 # Hvor mange av cellens naboer lever?
                 naboer = (self.finnNabo(x, y))
-                # print(naboer)
                 alive = 0
                 dead = 0
                 for nabo in naboer:
@@ -48,38 +56,27 @@ class Spillebrett:
 
                 # Hvis cellen har to eller tre levende naboceller vil cellen leve
                 if alive == 2 or alive == 3:
-                    # celle.settLevende()
-                    # self._alive = True
-                    #print(alive)
-                    #print("Alive")
                     levende.append(celle)
 
                 # Ellers vil den dø
                 else:
-                    # celle.settDoed()
-                    # self._alive = False
                     doed.append(celle)
-        print(len(levende))
-        # print(doed)
+
         # Selve oppdateringen
         for rad in self._brett:
             for celle in rad:
                 # Will a use of a try-except block be useful here?
                 if celle in levende:
                     celle._alive = True
-                    # print("Yes")
-
+                
                 elif celle in doed:
-                    #print("No")
                     celle._alive = False
 
                 else:
                     print("Error i oppdatering.")
-        
-
+        # Oppdater generasjonsvariablen
         self._gen += 1
         
-    
     def finnAntallLevende(self):
         tall = 0
         for rad in self._brett:
@@ -101,21 +98,25 @@ class Spillebrett:
 
     
     def finnNabo(self, cellerad, cellekolonne):
+        """
+        finnNabo() tar en celles indexaddresse i form av rad og kolonne som input
+        funksjonen leveer en liste med alle celler(objekter) som er nabo til cellen(self)
+        """
         # definer søkeområdet
-        search_min = -1
-        search_max = 2
+        sok_min = -1
+        sok_max = 2
 
         naboliste = []
 
-        # sjekk naboer start med -1, -1 - Hvis det er 'E' så vil det være 'A'
+        # sjekk naboer start med -1, - opp til 2
         # start med første rad i matrisen
-        for rad in range(search_min, search_max):
+        for rad in range(sok_min, sok_max ):
             # start med første kolonne på den raden og ta en og en celle bortover
-            for kolonne in range(search_min, search_max):
+            for kolonne in range(sok_min, sok_max ):
                 naborad = rad + cellerad
                 nabokolonne = kolonne + cellekolonne
 
-                # Sjekk om nabocellen er utenfor matrisen (North,West, East, South)
+                # Sjekk om nabocellen er utenfor matrisen (North, West, East, South)
                 if naborad < 0:
                     continue
                 if nabokolonne < 0:
