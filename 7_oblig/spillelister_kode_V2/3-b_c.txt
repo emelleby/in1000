@@ -1,0 +1,5 @@
+a. Se tegning
+b. Artister kan selvfølgelig ha flere sanger og hvis man bruker artist som 'key' vil forrige sang av artisten bli overskrevet.
+Det samme gjelder om man bruker tittel siden det kan være flere sanger med samme navn.
+Man kan jo unngå det ved å bruke artist som 'key' og en liste som 'value' med alle sangene. Blir litt mer mekk kanskje?
+c. Nei... Kanskje det blir teit å ha lesFraFil funksjonen i konstruktøren eller måtte kalle på den derfra?

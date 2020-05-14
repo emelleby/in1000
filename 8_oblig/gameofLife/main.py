@@ -5,9 +5,9 @@ def main():
     rader = int(input("Hvor mange rader vil du ha? "))
     kolonner = int(input("Hvor mange kolonner vil du ha? "))
 
-    #Opprett instansen av brettet
+    # Opprett instansen av brettet
     brett = Spillebrett(rader, kolonner)
-    #Tegn ut brettet
+    # Tegn ut brettet
     brett.tegnBrett()
     # Sett while loop control variable
     new_generation = ""
