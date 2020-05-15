@@ -30,7 +30,8 @@ class Spillebrett:
             for celle in rad:
                 print(celle.hentStatusTegn(), end='')
             print("\n")
-    
+        print(f"Dette er generasjon {self._gen}")
+            
     def oppdatering(self):
         """
         oppdatering() kjører en oppdateringsrutine som lager to lister hvor alle objektene 
@@ -38,39 +39,59 @@ class Spillebrett:
         """
         levende = []
         doed = []
-
+        celler = 0
+        totalt = 0
         # Finn ut hvilken status hver celle skal ha i neste generasjon
         # for hver celle
         for x, rad in enumerate(self._brett):
             for y, celle in enumerate(rad):
+                totalt += 1
                 # Hvor mange av cellens naboer lever?
                 naboer = (self.finnNabo(x, y))
                 alive = 0
                 dead = 0
                 for nabo in naboer:
-                    if nabo._alive:
+                    if nabo.erLevende():
                         alive += 1
     
                     else:
                         dead += 1
+                
+                if celle.erLevende():
+                    # Hvis cellen har to eller tre levende naboceller vil cellen leve
+                    if alive == 2 or alive == 3:
+                        levende.append(celle)
+                        celler += 1
 
-                # Hvis cellen har to eller tre levende naboceller vil cellen leve
-                if alive == 2 or alive == 3:
-                    levende.append(celle)
+                    # Ellers vil den dø
+                    else:
+                        doed.append(celle)
+                        celler += 1
+                
+                if not celle.erLevende():
 
-                # Ellers vil den dø
-                else:
-                    doed.append(celle)
+                    if alive == 3:
+                        levende.append(celle)
+                        celler += 1
+                        print("død celle blir levende")
+                    else:
+                        doed.append(celle)
+                        celler += 1
 
+        print(len(self._brett))
+        print(totalt)
+        print("celler:" + str(celler))
+        print("levende:" + str(len(levende)))
+        print("Døde:" + str(len(doed)))
         # Selve oppdateringen
         for rad in self._brett:
             for celle in rad:
                 # Will a use of a try-except block be useful here?
                 if celle in levende:
-                    celle._alive = True
+                    celle.settLevende()
                 
                 elif celle in doed:
-                    celle._alive = False
+                    celle.settDoed()
 
                 else:
                     print("Error i oppdatering.")
@@ -82,7 +103,7 @@ class Spillebrett:
         for rad in self._brett:
             for celle in rad:
                 # tell alle celler som lever
-                if celle._alive:
+                if celle.erLevende():
                     tall += 1
         return tall
     
@@ -91,9 +112,9 @@ class Spillebrett:
             for celle in rad:
                 tall = random.randint(0,2)
                 if tall == 0:
-                    celle._alive = True
+                    celle.settLevende()
                 else:
-                    celle._alive = False
+                    celle.settDoed()
 
 
     
