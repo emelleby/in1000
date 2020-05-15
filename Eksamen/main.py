@@ -9,10 +9,17 @@ from land import Land
 from smitte import Smitte
 from dato import Dato
 from region import Region
-from erstatt import erstatt#, dato
+from functions import erstatt, country, new, date#, dato
+
+# Ordbok som holder på kode og navn for hvert land
+landkoder = {}
+
+smittedata = {}
+
+datoer = {}
 
 def main():
-    innfil = "data.txt"
+    innfil = "data.csv"
     # innfil = input("Hva heter filen med smittedata? ")
     fortsett = True
 
@@ -24,16 +31,9 @@ def main():
     
             fortsett = False
     
-            # Ordbok som holder på kode og navn for hvert land
-            landkoder = {}
-            
-            smittedata = {}
-            
-            datoer = {}
             
             #Åpne filen og les linje for linje
             with open(innfil, mode='r') as data:
-                
                 dataListe = []
                 
                 landSet = set()
@@ -42,16 +42,13 @@ def main():
                     s = (biter[1],biter[0])
                     landSet.add(s)
                     
+                    # Legg data fra fil inn i dataListe
                     dataListe.append(biter)
         
-                print(landSet)
+                print(dataListe)
                 for landkode in landSet:
                     landkoder[landkode[0]] = landkode[1]
                     
-                print(landkoder)
-                
-                lkode = ""
-                # print(dataListe)
                 
                 # Iterer over dataSet
                 for e in dataListe:
@@ -60,53 +57,37 @@ def main():
                     if e[1] in smittedata:
                         land = smittedata.get(e[1])
         
-                    else:
+                    #else:
         
-                        land = None
-        
-                    dato = None
-        
-                    
+                        #land = None
+                            
                     # Hvis vi ikke har sett landkoden før så oppretter vi et nytt objekt av klassen Land
-                    if lkode != e[1]:
+                    if e[1] not in smittedata:
                         land = Land(e[0], e[1])
         
-                        lkode = e[1]
-        
                     # Opprett et Smitte objekt 
-                    smitte = Smitte(e[4])
+                    smitte = Smitte(int(e[4]))
                     
                     # Splitt og konfig en tuple med tre dato elementer(m,d,å)
                     d = (e[2][1:4], e[2][4:], e[3][-5:-1])
-        
-                    # Lag datostrengen
+                    print(d)
+                    # Lag datostrengen som skal være key i datoer{}
                     datoen = (e[2][1:]) + (e[3][-5:-1])
                     
                     # Hvis strengen som ble gitt er i ordboken som key - Dato er opprettet
-                    if datoen in datoer:
+                    if datoen not in datoer:
                         
-                        # Pek dato til verdien i datoer
-                        dato = datoer[datoen]
-                        
-                        # Pek datoObjektet til smitte objektet
-                        smitte.setDato(dato)
-                        
-                        land.setSmitte(smitte)
-                        
-                        # Legg Til land i smittedata
-                        smittedata[e[1]] = land
-                    
-                    # Hvis datoObjektet ikke allerede er opprettet
-                    else:
                         # Legg datoobjektet inn i listen over datoer
                         datoer[datoen] = Dato(erstatt(datoen[:3]), int(d[1]), int(d[2]))
-                        dato = datoer[datoen]
-                        smitte.setDato(dato)
-                        
-                        land.setSmitte(smitte)
-                        
-                        # Legg Til land i smittedata
-                        smittedata[e[1]] = land
+                    
+                    # Sett dato på smitteobjektet
+                    smitte.setDato(datoer[datoen])
+                    
+                    # Sett smittedata for denne dato for landet
+                    land.setSmitte(smitte)
+                    
+                    # Legg Til land i smittedata med kode som key
+                    smittedata[e[1]] = land
                         
                 print(smittedata["NOR"])
                 print(smittedata["SWE"])
@@ -120,33 +101,43 @@ def main():
 
     print("Her begynner løkken for meny.")
 
-    
-
+    menyValg = {
+                "c": country,
+                "d": date,
+               # "g": group,
+               # "m": maks,
+                "n": new,
+               # "p": plot,
+               # "q": avslutt,
+               # "r": remove,
+               # "w": write            
+                }
     
     valg = ""
+
     while valg != "q":
         
-        try:
-            pass
-        except: # expression as identifier:
-            pass
-        else:
-            pass# continue
-        finally:
-            print("Takk for nå.")
+
         
-        c = "SWE"
-        if c in smittedata:
-            land = smittedata.get(c)
-            # print(land)
-            landSmitte = land.getSmitteArr()
-            print(landSmitte)
-            print(landSmitte[0])
-            for day in landSmitte[1]:
-                print(day.getSmitte())
+        # try:
+            valg = input("Hva vil du gjøre? ")
+            # print("try")
+            if valg != "q":
+                menyValg.get(valg)(smittedata, datoer)
+ 
+        #except:# menyValg.KeyError:
+            # valg = 'q'
+            # print("Except")
+            # continue
+        #else:
+            # print("Takk for nå.")
+        #finally:
+            #print("Takk for nå.")
+        
+
                          
-        valg = "q"      
-        
+        # valg = "q"      
+    print("Takk for nå.")    
         
 if __name__ == "__main__":
     main()

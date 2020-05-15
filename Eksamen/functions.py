@@ -6,7 +6,7 @@ Created on Tue May 12 22:56:09 2020
 @author: eivind
 """
 
-from dato import Dato
+# from dato import Dato
 
 def erstatt(argument):
     bok = {
@@ -27,7 +27,7 @@ def erstatt(argument):
 
 
 
-def country():
+def country(smittedata, datoer):
     c = input("Oppgi kode for landet du vil se: ")
     if c in smittedata:
         land = smittedata.get(c)
@@ -37,41 +37,40 @@ def country():
         print(landSmitte[0])
         for day in landSmitte[1]:
             print(day.getSmitte())
+            
+def date(sdata, datoer):
+    obj = None
+    d = 8 #int(input("Dag"))
+    m = 4 #int(input("Måned"))
+    aa = 2020 #int(input("År"))
+    t = (d,m,aa)
+    print(t)
+    # Finn det riktige dato objektet
+    for key, dato in datoer.items():
+        
+        if dato.getDato() == t:
+            obj = dato
+            print("Fant dato")
+            print(obj)
+    # print(sdata)    
+    print(sdata.get("NOR").getSmitteDay(obj)) 
+    
+    smitte = 0    
+    for k, land in sdata.items():
+        print(k)
+        arr = land.getSmitteArr()
+        print(arr)
+        for i in arr[1]:
+            if i.getDato() == obj:
+                print("Hei")
+                smitte += i.getSmitteDato()
+    
+    print(smitte)
 
-def new():
+def new(x,y):
     print("Jasså, så du vil ha noe nytt? Sorry!")
 
-def dato(dato):
-    datoer = {}
-    
-    # Opprett et datoobjekt    
-    #Apr82020 = Dato(4, 8, 2020)
-    # Legg datoobjektet inn i ordboken 'datoer
-    #datoer["Apr82020"] = Apr82020
-    #print objektet
-    #print(Apr82020)
-    # print ordboken
-    #print(datoer)
-    # Spør om den dato på formen Mmmdåååå
-    #dato = input("dato: ")
-    # Hvis strengen som ble gitt er i ordboken som key
-    if dato in datoer:
-        # Pek datoen som ble gitt til det objektet
-        dato = datoer[dato]
-        print(dato)
-        print("46")
-        
-    else:
-        # Legg datoobjektet inn i listen
-        datoer[dato] = Dato(erstatt(dato[:3]), int(dato[3]), int(dato[4:]))
-        # Pek landobjektets datoattributt til objektet
-        
-        
-    print(datoer)
-    #print(datoer[dato])
 
-    
-    # assert(apr82020 is dato)
 
 def main():
         

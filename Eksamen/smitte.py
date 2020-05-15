@@ -32,5 +32,12 @@ class Smitte:
     def setDato(self, dato):
         self._dato = dato
         
+    def getDato(self):
+        return self._dato
+        
     def getSmitte(self):
         return (str(self._dato), self._antSmittede)
+    
+    def getSmitteDato(self):
+        print(type(self._antSmittede))
+        return self._antSmittede

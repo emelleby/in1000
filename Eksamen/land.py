@@ -38,4 +38,14 @@ class Land:
             
             days.append(day)
         return (self._navn, days)
+    
+    def getSmitteDay(self, dato):
+        for day in self._smitte:
+            print(day.getDato())
+            if day.getDato() == dato:
+                smitte = day.getSmitte()[1]
+                print("HEI")
+                return smitte #day.getSmitteDato()
+            else:
+                return 0
         
