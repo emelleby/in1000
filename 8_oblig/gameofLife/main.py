@@ -24,7 +24,7 @@ def main():
                 brett.oppdatering()
                 brett.tegnBrett()
 
-        except expression as identifier:
+        except: #expression as identifier:
             print("Feil valg - You STUPID!")
         # Hvis noe annet enn 'Enter' eller 'q' trykkes så går loopen en runde til uten å oppdatere.
         else:

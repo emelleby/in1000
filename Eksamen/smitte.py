@@ -29,6 +29,9 @@ class Smitte:
     def __str__(self):
         return f"Antallsmittede er {self._antSmittede}"
     
+    def string(self):
+        return f"{self._dato.string()},{self._antSmittede}"
+    
     def setDato(self, dato):
         self._dato = dato
         

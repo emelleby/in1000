@@ -7,11 +7,12 @@ Created on Tue May 12 19:46:36 2020
 """
 
 class Dato:
-    def __init__(self, maaned, dag, aar):
+    def __init__(self, maaned, dag, aar, d):
         
         self._aar = aar
         self._maaned = maaned
         self._dag = dag
+        self._str = d
         
         self._sort = 0
         
@@ -31,7 +32,7 @@ class Dato:
         self._dag == annen._dag)
     """    
     def __del__(self):
-        print("Jeg har blitt erstattet {self._sort}")
+        print("Jeg har blitt erstattet")
         
 
     def __eq__(self, annen):
@@ -51,3 +52,6 @@ class Dato:
     def getSort(self):
         return self._sort
     
+    def string(self):
+        return f'"{self._str[0]}{self._str[1]}, {self._str[2]}"'
+        

@@ -127,6 +127,13 @@ def maks(regioner):
             
     print(str(d) + " med " + str(smitteokning) + " nye smittede.")
     
+def write(data, datoer):
+    skriv = open("out.csv", mode="w")
+    print(data)
+    for land in data.values():
+        print(land)
+        skriv.write(land.string())
+    skriv.close()
 
 def main():
     pass

@@ -54,4 +54,13 @@ class Land:
             
     def getNavn(self):
         return self._navn
+    
+    def string(self):
+        stringArr = []
+        string = ""
+        for dato in self._smitte:
+            stringArr.append(self._navn + "," + self._kode + "," + dato.string() + '\n')
+        
+        return string.join(stringArr)
+            
         

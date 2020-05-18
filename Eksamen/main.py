@@ -9,7 +9,7 @@ from land import Land
 from smitte import Smitte
 from dato import Dato
 from region import Region
-from functions import erstatt, country, new, date, remove, group, maks#, dato
+from functions import erstatt, country, new, date, remove, group, maks, write#, dato
 
 # Ordbok som holder på kode og navn for hvert land
 landkoder = {}
@@ -66,8 +66,8 @@ def main():
             if datoen not in datoer:
                 
                 # Legg datoobjektet inn i listen over datoer
-                datoer[datoen] = Dato(erstatt(datoen[:3]), int(d[1]), int(d[2]))
-            
+                datoer[datoen] = Dato(erstatt(datoen[:3]), int(d[1]), int(d[2]), d)
+                print(datoer[datoen].string())
             # Sett dato på smitteobjektet
             smitte.setDato(datoer[datoen])
             
@@ -77,10 +77,10 @@ def main():
             # Legg Til land i smittedata med kode som key
             smittedata[e[1]] = land
                 
-        print(smittedata["NOR"])
-        print(smittedata["SWE"])
-        print(smittedata)
-
+        #print(smittedata["NOR"])
+        #print(smittedata["SWE"])
+        #print(smittedata)
+        print(datoer)
 
     print("Her begynner løkken for meny.")
 
@@ -92,8 +92,8 @@ def main():
                 "n": new,
                # "p": plot,
                # "q": avslutt,
-               "r": remove,
-               # "w": write            
+                "r": remove,
+                "w": write            
                 }
     
     valg = ""
