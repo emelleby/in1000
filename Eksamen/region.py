@@ -65,6 +65,14 @@ class Region(Land):
         for key,value in self._smitteSortedByAnt:
             print(key,value)
             
+    def getSmitteSortedDate(self):
+        return self._smitteArr
+
+            
+    def getSmitteSortedAnt(self):
+        return self._smitteSortedByAnt
+
+            
         # Use List comprehension to print the contents of dictionary , sorted by value of an object attribute in the key.
         #[ print(key , " :: " , value) for (key, value) in sorted(self._smitte.items(),  key=lambda x: x[0]._sort ) ]
 

@@ -9,7 +9,7 @@ from land import Land
 from smitte import Smitte
 from dato import Dato
 from region import Region
-from functions import erstatt, country, new, date, remove, group#, dato
+from functions import erstatt, country, new, date, remove, group, maks#, dato
 
 # Ordbok som holder på kode og navn for hvert land
 landkoder = {}
@@ -88,7 +88,7 @@ def main():
                 "c": country,
                 "d": date,
                 "g": group,
-               # "m": maks,
+                "m": maks,
                 "n": new,
                # "p": plot,
                # "q": avslutt,
@@ -102,7 +102,12 @@ def main():
         
 
         valg = input("Hva vil du gjøre? ")
-        # print("try")
+        print("m")
+        
+        if valg == "m":
+            menyValg.get(valg)(regioner)
+            continue
+        
         if valg != "q":
             menyValg.get(valg)(smittedata, datoer)
             
@@ -112,6 +117,7 @@ def main():
             #regioner.append(region)
             regioner[region.getNavn()] = region
             print(regioner)
+            
 
     
     print("Takk for nå.")    

@@ -105,6 +105,27 @@ def group(data,dato):
     #print(regionSmitte[0])
     #for day in regionSmitte[1]:
         #print(day.getSmitte())
+
+def maks(regioner):
+    print("Hvilken region vil du vite maks av?")
+    for region in regioner.keys():
+        print(region)
+        
+    regionvalg = input("Skriv inn valget: " )
+    regionSmitte = regioner[regionvalg].getSmitteSortedAnt()
+    print(regionSmitte)
+    d = None
+    smitteokning = 0
+    dayBefore = 0
+    for dato, smitte in regionSmitte:
+        day = smitte.getSmitteDato()
+        dayOkning = day - dayBefore
+        dayBefore = day
+        if dayOkning > smitteokning:
+            smitteokning = dayOkning
+            d = dato
+            
+    print(str(d) + " med " + str(smitteokning) + " nye smittede.")
     
 
 def main():
@@ -112,4 +133,4 @@ def main():
     
 
 if __name__ == "__main__":
-    group(data=1,dato="w")
+    main()
