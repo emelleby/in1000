@@ -13,6 +13,12 @@ class Dato:
         self._maaned = maaned
         self._dag = dag
         
+        self._sort = 0
+        
+        m = "0" + str(maaned) if maaned<10 else maaned
+        d = "0" + str(dag) if dag<10 else dag
+        sort = str(aar)+ str(m)+str(d)
+        self._sort = int(sort)
         # print("Jeg er initiert")
     
     # Sørger for at jeg kan bruke objektet som nøkkel i dict 
@@ -25,7 +31,7 @@ class Dato:
         self._dag == annen._dag)
     """    
     def __del__(self):
-        print("Jeg har blitt erstattet")
+        print("Jeg har blitt erstattet {self._sort}")
         
 
     def __eq__(self, annen):
@@ -41,3 +47,6 @@ class Dato:
     
     def getDato(self):
         return (self._dag, self._maaned, self._aar)
+    
+    def getSort(self):
+        return self._sort

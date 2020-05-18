@@ -34,10 +34,16 @@ class Smitte:
         
     def getDato(self):
         return self._dato
+    
+    def __del__(self):
+        print("Jeg har blitt slettet")
         
     def getSmitte(self):
         return (str(self._dato), self._antSmittede)
     
     def getSmitteDato(self):
-        print(type(self._antSmittede))
+        # print(type(self._antSmittede))
         return self._antSmittede
+    
+    def updateSmitte(self, ny):
+        self._antSmittede += ny

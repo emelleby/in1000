@@ -32,6 +32,9 @@ class Land:
         self._smitte.append(smitte)
         # print("Running setSmitte")
         
+    def deleteSmitte(self,index):
+        del self._smitte[index]
+    
     def getSmitteArr(self):
         days = []
         for day in self._smitte:
@@ -48,4 +51,7 @@ class Land:
                 return smitte #day.getSmitteDato()
             else:
                 return 0
+            
+    def getNavn(self):
+        return self._navn
         
