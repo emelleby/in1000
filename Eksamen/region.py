@@ -20,6 +20,7 @@ class Region(Land):
         self._land = land
         self._smitte = {}
         self._smitteArr = None
+        self._smitteSortedByAnt = None
         # super().__init__(self) # Tar inn '_navn' og '_kode' fra 'Land' konstruktør
         
         for l in self._land:
@@ -40,10 +41,15 @@ class Region(Land):
                     self._smitte[d] = Smitte(ele.getSmitteDato())
 
         # Sorter self._smitte
-        self._smitteArr = sorted(self._smitte.items(), key=lambda x: x[0]._sort) #reverse=True
-        print(self._smitteArr)
+        self._smitteArr = sorted(self._smitte.items(), key=lambda x: x[0].getSort()) #reverse=True
+        self._smitteSortedByAnt = sorted(self._smitte.items(), key=lambda x: x[1].getSmitteDato())
+        
+        
+        #print(self._smitteArr)
+        #print(self._smitteSortedByAnt)
+        
     def __str__(self):
-        return f"Jeg er en region som heter {self._navn} med følgende land: {i.getNavn() for i in self._land}\n {self.printSmitte()}"
+        return f"Jeg er en region som heter {self._navn} med følgende land: {i.getNavn() for i in self._land}\n {self.printSmitteSortedAnt()}"
     
     def getNavn(self):
         return self._navn
@@ -51,12 +57,16 @@ class Region(Land):
     def setKode(self, kode):
         self._kode = kode
         
-    def printSmitte(self):
+    def printSmitteSortedDate(self):
         for key,value in self._smitteArr:
             print(key,value)
             
+    def printSmitteSortedAnt(self):
+        for key,value in self._smitteSortedByAnt:
+            print(key,value)
+            
         # Use List comprehension to print the contents of dictionary , sorted by value of an object attribute in the key.
-        [ print(key , " :: " , value) for (key, value) in sorted(self._smitte.items(),  key=lambda x: x[0]._sort ) ]
+        #[ print(key , " :: " , value) for (key, value) in sorted(self._smitte.items(),  key=lambda x: x[0]._sort ) ]
 
 
 

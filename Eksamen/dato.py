@@ -50,3 +50,4 @@ class Dato:
     
     def getSort(self):
         return self._sort
+    
