@@ -7,12 +7,10 @@ Created on Tue May 12 21:09:47 2020
 """
 from land import Land
 from smitte import Smitte
-# from dato import Dato
 
 
 class Region(Land):
-    
-    # Bruk av super()    
+       
     def __init__(self, navn, kode, land):
         
         self._navn = navn
@@ -21,13 +19,13 @@ class Region(Land):
         self._smitte = {}
         self._smitteArr = None
         self._smitteSortedByAnt = None
-        # super().__init__(self) # Tar inn '_navn' og '_kode' fra 'Land' konstruktør
+
         
         for l in self._land:
-            # for hver smitteobjekt hvert land har
-            smitte = l.getSmitteArr()
-            # d=None
-            for ele in smitte[1]:
+            # for hvert smitteobjekt hvert land har
+            smitte = l.getSmitte()
+
+            for ele in smitte:
                 # print(ele)
                 d = ele.getDato()
                 # Hvis dato er i ordbok
@@ -44,14 +42,18 @@ class Region(Land):
         self._smitteArr = sorted(self._smitte.items(), key=lambda x: x[0].getSort()) #reverse=True
         self._smitteSortedByAnt = sorted(self._smitte.items(), key=lambda x: x[1].getSmitteDato())
         
-        
-        #print(self._smitteArr)
-        #print(self._smitteSortedByAnt)
-        
-    def __str__(self):
-        return f"Jeg er en region som heter {self._navn} med følgende land: {i.getNavn() for i in self._land}\n {self.printSmitteSortedAnt()}"
+        # Use List comprehension to print the contents of dictionary , sorted by value of an object attribute in the key.
+        #[ print(key , " :: " , value) for (key, value) in sorted(self._smitte.items(),  key=lambda x: x[0].getSort() ) ]
     
-    def getNavn(self):
+    
+    def __str__(self):
+        navnLand = []
+        for land in self._land:
+            navnLand.append(land.getNavn())
+        navn = ", ".join(navnLand)
+        return f"Jeg er en region som heter {self._navn} med følgende land: {navn}"
+    
+    def getNavnRegion(self):
         return self._navn
         
     def setKode(self, kode):
@@ -72,9 +74,7 @@ class Region(Land):
     def getSmitteSortedAnt(self):
         return self._smitteSortedByAnt
 
-            
-        # Use List comprehension to print the contents of dictionary , sorted by value of an object attribute in the key.
-        #[ print(key , " :: " , value) for (key, value) in sorted(self._smitte.items(),  key=lambda x: x[0]._sort ) ]
+        
 
 
 

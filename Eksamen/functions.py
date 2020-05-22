@@ -6,7 +6,6 @@ Created on Tue May 12 22:56:09 2020
 @author: eivind
 """
 
-from region import Region
 
 def erstatt(argument):
     bok = {
@@ -25,95 +24,97 @@ def erstatt(argument):
     }
     return bok.get(argument, "Ugyldig måned")
 
-
-
 def country(smittedata, datoer):
+    """Country"""
     c = input("Oppgi kode for landet du vil se: ")
     if c in smittedata:
         land = smittedata.get(c)
-        # print(land)
+
         landSmitte = land.getSmitteArr()
-        # print(landSmitte)
+
         print(landSmitte[0])
         for day in landSmitte[1]:
             print(day.getSmitte())
-            
+ 
+           
 def date(sdata, datoer):
+    """Skriver ut data om smitte for en bestemt dato"""
     obj = None
-    d = 19 #int(input("Dag"))
-    m = 4 #int(input("Måned"))
-    aa = 2020 #int(input("År"))
+    d = int(input("Dag: "))
+    m = int(input("Måned: "))
+    aa = int(input("År: "))
     t = (d,m,aa)
-    print(t)
+
     # Finn det riktige dato objektet
     for key, dato in datoer.items():
         
-        if dato.getDato() == t:
+        # Hvis en dato er lik det bruker har oppgitt
+        if dato.getDatoTuple() == t:
             obj = dato
-            print("Fant dato")
-            print(obj)
-            break
-    # print(sdata)    
-    # print(sdata.get("NOR").getSmitteDay(obj)) 
+            # break kunne vært her for å avslutte loopen for performance
+            
+    # For å beregne totalt antall smittede
+    smitte = 0
     
-    smitte = 0    
     for k, land in sdata.items():
-        print(k)
+
         arr = land.getSmitteArr()
-        print(arr)
+
         for i in arr[1]:
             if i.getDato() == obj:
-                
+                print(arr[0],obj, i.getSmitteDato())
                 smitte += i.getSmitteDato()
-                break
-    print(smitte)
+                # break
+    print("Totalt antall smittede er : " +str(smitte))
+
    
 def remove(data, dato):
+    """Sletter alle oppføringer i datagrunnlaget hvor smitteantallet = 0"""
+    ant = 0
     for k, land in data.items():
-        print(k)
-        arr = land.getSmitteArr()
-        print(arr)
-        for i,o in enumerate(arr[1]):
-            if o.getSmitteDato() == 0:
+        # Hent all smittedata
+        arr = land.getSmitte()
+        
+        # Hvis smitten er lik null slettes oppføringen
+        # Det forutsettes at ikke smitte går tilbake til null når det først er blitt tilfeller.
+        for i, obj in enumerate(arr):
+            if obj.getSmitteDato() == 0:
                 land.deleteSmitte(i)
-
-
+                ant += 1
+                
+    print(str(ant) + " oppføringer ble fjernet")
+    
+    
 def new(x,y):
     print("Jasså, så du vil ha noe nytt? Sorry!")
 
-def group(data,dato):
-    navn = "NS" #input("Hva skal gruppen hete? " )
-    kode = "NSkode"#input("Hvilken kode vil du ha på gruppen? ")
-    l = "NOR,DEN" #input("Skriv landkoder. Separert med komma.")
+def group(data, dato):
+    """Oppretter en region med en gruppe land"""
+    navn = input("Hva skal gruppen hete? " )
+    kode = input("Hvilken kode vil du ha på gruppen? ")
+    l = input("Skriv landkoder. Separert med komma.")
     l2 = l.split(",")
-    print(l2)
-    
+
+    # Legg til landskoder hvis de ikke er der fra før
     land = []
-    for v in l2:
-        if v in data:
-            land.append(data[v])
+    for i in l2:
+        if i in data.keys():
+            land.append(data.get(i))
     
-    # Opprett et Regionsobjekt
-    region = Region(navn, kode, land)
-    #region.setNavn(navn)
-    #region.setKode(kode)
-    # print(region.getSmitteArr())        
-    print(region)
-    return region
-    #regionSmitte = region.getSmitteArr()
-        # print(landSmitte)
-    #print(regionSmitte[0])
-    #for day in regionSmitte[1]:
-        #print(day.getSmitte())
+    return (navn,kode,land)
+    
 
 def maks(regioner):
+    """Hvis en region er opprettet så kan man få svar på hvilken dato smitten økte mest"""
     print("Hvilken region vil du vite maks av?")
+
     for region in regioner.keys():
         print(region)
         
     regionvalg = input("Skriv inn valget: " )
     regionSmitte = regioner[regionvalg].getSmitteSortedAnt()
-    print(regionSmitte)
+
+    # Datoobjektet.
     d = None
     smitteokning = 0
     dayBefore = 0
@@ -128,12 +129,19 @@ def maks(regioner):
     print(str(d) + " med " + str(smitteokning) + " nye smittede.")
     
 def write(data, datoer):
+    """Skriver data ut igjen slik at utskrift kan brukes som input. Filen vil hete 'out.csv'"""
+
     skriv = open("out.csv", mode="w")
-    print(data)
-    for land in data.values():
-        print(land)
-        skriv.write(land.string())
+
+    # sort data
+    dataSorted = sorted(data.items())
+
+    for land in dataSorted:
+        skriv.write(land[1].string())
+
+        
     skriv.close()
+    print("Oppføringer skrevet til filen 'out.csv'")
 
 def main():
     pass

@@ -10,11 +10,9 @@ class Smitte:
     """
     Klassen Smitte inneholder informasjon om smittestatus på en bestemt dato for et land. 
     Smittestatus er antall som har testet positivt for covid-19 i dette landet på den gitte dato. 
-    Klassen skal ha instansvariable for antall smittede, antall testet, antall innlagt på sykehus, 
+    Klassen har instansvariable for antall smittede, antall testet, antall innlagt på sykehus, 
     antall på respirator og antall døde av covid-19 for landet for den datoen som instansvariabelen 
-    dato refererer til. Det skal ikke være noen instansvariabel for land i Smitte. 
-    Informasjonen om hvilket land smitteregistreringen gjelder, ligger i landobjektet 
-    som inneholder smitteregistreringen.
+    dato refererer til.
     """
     def __init__(self, antSmittede):
         
@@ -29,6 +27,7 @@ class Smitte:
     def __str__(self):
         return f"Antallsmittede er {self._antSmittede}"
     
+    # Leverer en tekststreng til utskrift til fil
     def string(self):
         return f"{self._dato.string()},{self._antSmittede}"
     
@@ -38,14 +37,13 @@ class Smitte:
     def getDato(self):
         return self._dato
     
-    def __del__(self):
-        print("Jeg har blitt slettet")
+    def getTestet(self):
+        return self._antTestet
         
     def getSmitte(self):
         return (str(self._dato), self._antSmittede)
     
     def getSmitteDato(self):
-        # print(type(self._antSmittede))
         return self._antSmittede
     
     def updateSmitte(self, ny):

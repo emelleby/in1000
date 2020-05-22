@@ -6,6 +6,8 @@ Created on Tue May 12 19:28:24 2020
 @author: eivind
 """
 
+from operator import itemgetter, attrgetter
+
 class Land:
     
     def __init__(self, navn, kode):
@@ -25,23 +27,27 @@ class Land:
 
         
     def __str__(self):
-        return f"Landet er {self._navn}({self._kode}) og har smittede: {self._smitte})"
+        return f"Landet er {self._navn}({self._kode}) og har smittede: {self._smitte}"
+        
     
     def setSmitte(self, smitte):
-        
         self._smitte.append(smitte)
-        # print("Running setSmitte")
-        
-    def deleteSmitte(self,index):
+
+    # I tilfelle man vil slette smittedata    
+    def deleteSmitte(self, index):
         del self._smitte[index]
     
+    def getSmitte(self):
+        return self._smitte
+    
+    # Leverer smittedata sammen med navn på landet
     def getSmitteArr(self):
         days = []
         for day in self._smitte:
             
             days.append(day)
         return (self._navn, days)
-    
+    """
     def getSmitteDay(self, dato):
         for day in self._smitte:
             print(day.getDato())
@@ -51,12 +57,15 @@ class Land:
                 return smitte #day.getSmitteDato()
             else:
                 return 0
-            
+     """       
     def getNavn(self):
         return self._navn
     
+    # Leverer stringen som skal skrives til fil
     def string(self):
         stringArr = []
+        # Sorterer på dato slik at det blir alfabetisk og på dato ut(kan skrives om litt)
+        self._smitte.sort(key=lambda x: x.getDato().getSort())
         string = ""
         for dato in self._smitte:
             stringArr.append(self._navn + "," + self._kode + "," + dato.string() + '\n')

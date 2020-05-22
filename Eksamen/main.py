@@ -9,25 +9,29 @@ from land import Land
 from smitte import Smitte
 from dato import Dato
 from region import Region
-from functions import erstatt, country, new, date, remove, group, maks, write#, dato
+from functions import erstatt, country, new, date, remove, group, maks, write#, test
 
 # Ordbok som holder på kode og navn for hvert land
 landkoder = {}
 
+# Her lagres all data
 smittedata = {}
 
 datoer = {}
 
+# Her lagres regioner som blir opprettet av bruker 
 regioner = {}
 
 def main():
     innfil = "data.csv"
-    # innfil = input("Hva heter filen med smittedata? ")
+    #innfil = input("Hva heter filen med smittedata? ")
    
     #Åpne filen og les linje for linje
     with open(innfil, mode='r') as data:
+        # dataListe for å holde data gjennom hele mainfunksjonen
         dataListe = []
         
+        # Opprett et set med unike verdier av landkoder med tilhørende navn
         landSet = set()
         for linje in data:
             biter = linje.strip().split(",")
@@ -37,11 +41,10 @@ def main():
             # Legg data fra fil inn i dataListe
             dataListe.append(biter)
 
-        print(dataListe)
+        # print(dataListe)
         for landkode in landSet:
             landkoder[landkode[0]] = landkode[1]
-            
-        
+             
         # Iterer over dataSet
         for e in dataListe:
 
@@ -58,7 +61,7 @@ def main():
             
             # Splitt og konfig en tuple med tre dato elementer(m,d,å)
             d = (e[2][1:4], e[2][4:], e[3][-5:-1])
-            print(d)
+
             # Lag datostrengen som skal være key i datoer{}
             datoen = (e[2][1:]) + (e[3][-5:-1])
             
@@ -67,7 +70,7 @@ def main():
                 
                 # Legg datoobjektet inn i listen over datoer
                 datoer[datoen] = Dato(erstatt(datoen[:3]), int(d[1]), int(d[2]), d)
-                print(datoer[datoen].string())
+
             # Sett dato på smitteobjektet
             smitte.setDato(datoer[datoen])
             
@@ -77,10 +80,7 @@ def main():
             # Legg Til land i smittedata med kode som key
             smittedata[e[1]] = land
                 
-        #print(smittedata["NOR"])
-        #print(smittedata["SWE"])
-        #print(smittedata)
-        print(datoer)
+        print("Data lastet inn\n")
 
     print("Her begynner løkken for meny.")
 
@@ -93,6 +93,7 @@ def main():
                # "p": plot,
                # "q": avslutt,
                 "r": remove,
+                #"t": test,
                 "w": write            
                 }
     
@@ -101,25 +102,28 @@ def main():
     while valg != "q":
         
 
-        valg = input("Hva vil du gjøre? ")
-        print("m")
+        valg = input(f"Hva vil du gjøre? ")
         
         if valg == "m":
             menyValg.get(valg)(regioner)
             continue
         
+        if valg == "g":
+
+            r = menyValg.get(valg)(smittedata, datoer)
+            # Opprett Region
+            region = Region(r[0], r[1], r[2])
+            # Legg region som er opprettet til i ordboken {'Navn': 'Region'}
+            regioner[r[0]] = region
+            print(regioner)
+            continue
+        
+        # Plukk funksjoner fra menyen eller avslutt
         if valg != "q":
             menyValg.get(valg)(smittedata, datoer)
             
-        if valg == "g":
-            region = menyValg.get(valg)(smittedata, datoer)
-            
-            #regioner.append(region)
-            regioner[region.getNavn()] = region
-            print(regioner)
-            
 
-    
+            
     print("Takk for nå.")    
         
 if __name__ == "__main__":
